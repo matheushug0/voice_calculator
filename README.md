@@ -12,3 +12,7 @@ source .venv/bin/activate
   - `pip install pyttsx3`
   - `pip install google-genai`
   - `pip install pyaudio`
+  - `pip install colorama`
+  - `pip install questionary`
+  - `pip install tqdm`
+  - `pip install pyfiglet`

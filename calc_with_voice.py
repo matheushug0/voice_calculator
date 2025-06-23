@@ -16,13 +16,49 @@ def speak_result(result):
   engine.say(result)
   engine.runAndWait()
 
-expression = speech.listen_and_convert()
-result = calc.calculator([expression])
-print(f"Resultado do cálculo (calculadora.py): {result}")
-response = client.models.generate_content(model="gemini-2.0-flash", contents=f"""
+def os_speaking(text):
+  os.system(f'espeak-ng -v pt-br -s 150 "{text}"')
+
+def voice_calculator():
+  expression = speech.listen_and_convert()
+  result = calc.calculator([expression])
+  try:
+    response = client.models.generate_content(model="gemini-2.0-flash", contents=f"""
     Gerei este resultado: {"".join(result)}, a partir da seguinte expressão matemática em Python: {expression}.
     Gere imediatamente um um texto curto para ser lido em voz alta pela aplicaçao, por exemplo 'O resultado da raiz quadrada de 49 somado a três vezes a diferença entre cinco e dois é vinte e quatro.'. Somente me gere o texto e ignore qualquer erro.
     """)
-print(response.text)
-os.system(f'espeak-ng -v pt-br -s 150 "{response.text}"')
-calc.save_results([result])
+  except Exception:
+    response = "Desculpe, meus processadores estã sobrecarregados. Tente novamente."
+    print(rf"""
+       [⚠ ERRO DETECTADO ⚠]
+              ______
+           .-'      '-.
+          /            \
+         |   X      X   |
+         |     .--.     |
+         |   | ==== |   |
+         |   | ==== |   |
+         |   | ==== |   |
+          \   `.__.'   /
+           '-.______.-'
+{response}
+    """)
+    os_speaking(response)
+    return
+  print(rf"""
+              ______
+           .-'      '-.
+          /            \
+         |              |
+         |,  .-.  .-.  ,|
+         | )(_o/  \o_)( |
+         |/     /\     \|
+         (_     ^^     _)
+          \__|IIIIII|__/
+           | \IIIIII/ |
+           \          /
+            `--------`
+{response.text}
+""")
+  os_speaking(response.text)
+  calc.save_results([result])
