@@ -1,19 +1,21 @@
 import speech_recognition as sr
+import calc_with_voice as c
+import ui
 
 def listen_and_convert():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Listening...")
+        ui.print_colored_green("Diga algo:")
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source)
         try:
             text = r.recognize_google(audio, language='pt-BR')
-            print("Texto falado:", text)
             text = text_filter(text)
-            print("Texto falado após formatação:", text)
+            ui.print_colored_yellow(text)
             return text
-        except:
-            print("Sorry, I didn't catch that.")
+        except Exception:
+            ui.print_colored_yellow("Não entendi o que você disse.")
+            c.os_speaking("Desculpe, não entendi o que você disse.")
             return None
 
 def text_filter(input):

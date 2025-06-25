@@ -1,4 +1,5 @@
 import math
+import ui
 #função que lê o arquivo com as operações e retorna um array de arrays
 #com 0 ou várias operações já formatadas
 #[['1', '+', '1'], ['2', '+', '2']]
@@ -11,7 +12,12 @@ def read_calcs(path):
       calcs.append(calc.strip())
     return calcs
   except FileNotFoundError:
-    print("Arquivo não encontrado.")
+    ui.loading_animation("Arquivo não encontrado - Criando arquivo...", 10, "YELLOW")
+    calculator_file = open(path, "w")
+    calculator_file.write("1 + 1")
+    calculator_file.close()
+    ui.print_colored_green("Arquivo criado com sucesso.")
+    return read_calcs(path)
   finally:
     calculator_file.close()
 
@@ -40,6 +46,6 @@ def save_results(results):
     for result in results:
       calculator_file.write(str(result) + "\n")
   except FileNotFoundError:
-    print("Arquivo não encontrado.")
+    ui.print_colored_yellow("Arquivo não encontrado.")
   finally:
     calculator_file.close()
