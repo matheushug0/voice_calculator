@@ -4,6 +4,8 @@ import os
 import configs
 from google import genai
 import ui
+import ccxt
+import pyfiglet
 
 client = genai.Client(api_key=configs.get_api_key())
 
@@ -59,3 +61,30 @@ def voice_calculator():
 """)
   os_speaking(response.text)
   calc.save_results([result])
+
+def get_bitcoin_price():
+  try:
+    exchange = ccxt.binance()
+    ticker = exchange.fetch_ticker('BTC/BRL')
+    response = f"O preço atual do Bitcoin é de {ticker['last']:.0f} Reais."
+    ui.loading_title("$", response)
+  except Exception:
+    response = "Desculpe, meus processadores estã sobrecarregados. Tente novamente."
+    print(rf"""
+       [⚠ ERRO DETECTADO ⚠]
+              ______
+           .-'      '-.
+          /            \
+         |              |
+         |,  .-.  .-.  ,|
+         | )(_o/  \o_)( |
+         |/     /\     \|
+         (_     ^^     _)
+          \__|IIIIII|__/
+           | \IIIIII/ |
+           \          /
+            `--------`
+{response}
+    """)
+    os_speaking(response)
+    return
