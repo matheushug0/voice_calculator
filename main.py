@@ -17,5 +17,5 @@ while True:
     ct.txt_calculator()
   if option == "Sair":
     break
-  else:
+  if option == " ":
     cv.get_bitcoin_price()
