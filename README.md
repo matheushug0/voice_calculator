@@ -22,3 +22,4 @@ source .venv/bin/activate
   - `pip install questionary`
   - `pip install tqdm`
   - `pip install pyfiglet`
+  - `pip install ccxt`
