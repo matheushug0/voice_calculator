@@ -4,7 +4,7 @@ import questionary as q
 import ui
     
 ui.loading_animation("Carregando Dependências", 10, "BLUE")
-ui.loading_title("Voice Calculator", "Bem-vindo ao Voice Calculêitor, uma calculadora de voz.")
+ui.loading_title("Voice Calculator", "Bem-vindo ao Voice Calculêitor.")
 
 while True:
   option = q.select(
@@ -16,6 +16,7 @@ while True:
   if option == "Calcular Arquivo de Texto (.txt)":
     ct.txt_calculator()
   if option == "Sair":
+    cv.os_speaking("Até mais!")
     break
   if option == " ":
     cv.get_bitcoin_price()

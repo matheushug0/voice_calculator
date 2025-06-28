@@ -6,6 +6,7 @@ def listen_and_convert():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         ui.print_colored_green("Diga algo:")
+        c.os_speaking("Diga algo:")
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source)
         try:

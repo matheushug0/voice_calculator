@@ -1,4 +1,4 @@
-API_KEY = "AIzaSyDdo6rAj3w7mMiu0mI69RZNhwYKBsq8-dg"
+API_KEY = "GEMINI_API_KEY"
 
 def get_api_key():
   return API_KEY
